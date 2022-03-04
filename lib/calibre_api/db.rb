@@ -7,7 +7,6 @@ module CalibreAPI
       @table = table.to_s
       @db = lib.current.db[@table]
       @data = @db.data
-      @order = :asc
       @sort = :default
     end
 
@@ -57,7 +56,7 @@ module CalibreAPI
       self.by(@sort) && @sort = nil if @sort
       self.query(@query) if @query
       self.letter(@alpha) if @alpha
-      self.desc && @order = nil if @order
+      self.desc && @order = false if @order
       self
     end
 
@@ -71,27 +70,15 @@ module CalibreAPI
     
     def desc
       @updated = true
-      @order = "desc"
+      @order = true
       self.data = @data.reverse
       self
     end
 
-    def order(order = "asc")
-      @updated = true
-      @order = order.to_s
-      self.data = order == "desc" ? @data.reverse : @data
-      self
-    end
-    
     def by(sort = "default")
       @updated = true
       @sort = sort.to_s
-      self.data =
-        if books?
-          sort_books
-        else
-          sort_associations
-        end
+      self.data = sort_books if books?
       self
     end
 
@@ -102,10 +89,6 @@ module CalibreAPI
     def sort_books
       ["modified", "added", "pubdate"]
         .include?(@sort) ? @data.send(@sort.to_sym) : @data
-    end
-
-    def sort_associations
-      @sort == "book_total" ? @data.book_total : @data
     end
 
     def meta

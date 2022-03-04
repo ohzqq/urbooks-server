@@ -11,6 +11,7 @@ module CalibreAPI
   autoload :Book, 'calibre_api/book'
   autoload :DB, 'calibre_api/db'
   autoload :CLI, 'calibre_api/cli'
+  autoload :Commands, 'calibre_api/commands'
   autoload :Fields, 'calibre_api/fields'
   autoload :Server, 'calibre_api/server'
   autoload :Templates, 'calibre_api/templates'
@@ -42,6 +43,8 @@ module CalibreAPI
   Calibredb.libraries.each do |l|
     lib[l.name] = l
   end
+  
+  lib.list = Calibredb.libraries.map(&:name)
 
   lib.default = Calibredb.libraries.first.name
 

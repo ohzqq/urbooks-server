@@ -72,7 +72,7 @@ module CalibreAPI
     end
 
     def sortable
-      @fields = dates_and_times.list.concat(display.list).sort
+      @fields = dates_and_times.list.sort
       push_fields
       self
     end
@@ -146,17 +146,6 @@ module CalibreAPI
 
     def title_and_series
       @fields = %w[title series series_index]
-      push_fields
-      self
-    end
-
-    def display
-      @fields =
-        if lib.current.list.fields
-          lib.theme.ui.field.keys.map(&:to_s)
-        else
-          default.list
-        end
       push_fields
       self
     end
