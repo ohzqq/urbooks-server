@@ -22,3 +22,9 @@ gem "pagy", "~> 5.10"
 gem "puma", "~> 5.6"
 
 gem "yaml", "~> 0.2.0"
+
+gem "sequel", "~> 5.52"
+
+gem "sqlite", "~> 1.0"
+
+gem "configatron", "~> 4.5"
