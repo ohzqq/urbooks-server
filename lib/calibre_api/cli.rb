@@ -21,6 +21,7 @@ module CalibreAPI
       global_option("-F", "--fields LIST", "Comma separated list of fields.")
       global_option("-S", "--sort SMTH")
       global_option("-D", "--desc")
+      global_option("--ids")
 
       command :list do |c|
         c.syntax = "cdb list"
@@ -36,18 +37,13 @@ module CalibreAPI
       end
       alias_command :"ls libraries", :"list libraries"
 
-      command :"list books" do |c|
-        c.syntax = "cdb list"
-        c.description = "List items. Default is a compact book summary."
-        c.action CalibreAPI::Commands::List, :books
+      %w[narrators tags authors books publishers series identifiers ratings formats].each do |cmd|
+        command :"list #{cmd}" do |c|
+          c.syntax = "cdb list #{cmd}"
+          c.action CalibreAPI::Commands::List, :"#{cmd}"
+        end
+        alias_command :"ls #{cmd}", :"list #{cmd}"
       end
-      alias_command :"ls books", :"list books"
-
-      command :"list authors" do |c|
-        c.syntax = "cdb list authors"
-        c.action CalibreAPI::Commands::List, :authors
-      end
-      alias_command :"ls authors", :"list authors"
 
       always_trace!
       run!

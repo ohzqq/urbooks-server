@@ -94,7 +94,7 @@ module CalibreAPI
     def meta
       results if @updated
       @updated = false
-      books? ? Book.new(@data, @library) : Association.new(@name, @data, @library)
+      books? ? Book.new(@data, @library) : Association.new(@table, @data, @library)
     end
   end
 end
