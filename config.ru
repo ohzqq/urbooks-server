@@ -5,6 +5,7 @@ Bundler.require
 require_relative 'config/boot'
 require 'pagy/extras/array'
 
-use Rack::Sendfile
+#use Rack::Sendfile
 
-run Rack::Cascade.new [CalibreAPI::Server::API]
+
+run Rack::Cascade.new [CalibreAPI::Server::Web]

@@ -28,3 +28,5 @@ gem "sequel", "~> 5.52"
 gem "sqlite", "~> 1.0"
 
 gem "configatron", "~> 4.5"
+
+gem "sinatra-contrib", "~> 2.2"

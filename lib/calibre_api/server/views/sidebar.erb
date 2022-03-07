@@ -1,0 +1,40 @@
+<div class="w3-sidebar w3-bar-block" id="sidebar">
+  <a href="<%= rel_url("/#{lib.current.name.to_slug}/search") %>" class="w3-bar-item w3-button">
+      Search
+  </a>
+
+  <button class="w3-bar-item w3-button" onclick="hideShow('libraries')">
+    <span class="w3-cell-middle">
+      Libraries
+    </span>
+    <svg class="feather w3-cell-middle">
+      <use href="/feather-sprite.svg#chevron-down">
+    </svg>
+  </button>
+
+  <div id="libraries" class="w3-hide sidebar-dropdown">
+    <%= erb :library_list %>
+  </div>
+  <button class="w3-bar-item w3-button" onclick="hideShow('categories')">
+    <span class="w3-cell-middle">
+      Browse by category
+    </span>
+    <svg class="feather w3-cell-middle">
+      <use href="/feather-sprite.svg#chevron-down">
+    </svg>
+  </button>
+
+  <div id="categories" class="w3-hide sidebar-dropdown">
+<% menu_items.sort.each do |item| %>
+  <a href="<%= rel_url("/#{lib.current.name.to_slug}/#{item}") %>" class="w3-bar-item w3-button w3-right">
+    <svg class="feather w3-cell-middle">
+      <use href="/feather-sprite.svg#minus">
+    </svg>
+    <span class="w3-cell-middle">
+      <%= item %>
+    </span>
+  </a>
+<% end %>
+  </div>
+</div>
+

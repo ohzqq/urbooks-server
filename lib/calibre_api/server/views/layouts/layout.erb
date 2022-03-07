@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head> 
+    <%#<%= render "/partials/_head.*" %>%>
+  </head>
+
+  <body class="w3-mobile">
+    <header class="w3-mobile">
+      <%#<%= render "/partials/_header.*" %>%>
+      poot
+    </header>
+
+    <div style="padding-top: 3em;" class="w3-hide-small"> </div>
+
+    <main class="w3-mobile w3-content w3-main main-site">
+      <%#<%= render "/partials/_page_title.*" %>%>
+      <%= yield %>
+    </main>
+
+    <div style="padding-bottom: 2em;" class="w3-hide-large"> </div>
+    
+    <footer class="w3-mobile w3-row">
+      <%#<%= render "/partials/_footer.*" %>%>
+      <%#<%= render "/partials/_js_scripts.*" %>%>
+    </footer>
+  </body>
+</html>

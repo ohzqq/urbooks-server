@@ -1,0 +1,24 @@
+
+xml = Nokogiri::XML::Builder.new do |xml|
+url = lib[@library].web["url"]
+  xml.opml(version: "2.0") {
+  xml.head {
+    xml.title("#{@library.capitalize} Feed List")
+  }
+  xml.body {
+    @feeds.each do |category, info|
+      info.each do |id, title|
+        feed_url = File.join(url, @library, category, id.to_s, "feed.xml")
+        xml.outline(
+          text: title,
+          title: title,
+          type: "rss",
+          xmlUrl: feed_url,
+          version: "RSS2"
+        )
+      end
+    end
+  }
+  }
+end
+xml.to_xml
