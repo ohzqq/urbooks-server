@@ -1,0 +1,17 @@
+<div class="w3-mobile meta">
+  <% meta = menu_items.delete_if {|b| b == "books"} %>
+    <% meta.reverse.each do |category| %>
+      <% items = item.send(category).as_hash %>
+      <% next if items.empty? %>
+  <div class="w3-mobile w3-bar w3-padding">
+    <div class="w3-mobile w3-bar-item w3-large">
+      <%= category %>: 
+    </div>
+    <% items.each do |tax| %>
+      <a href="<%= rel_url("#{@params[:library]}/#{category}/#{tax[:id]}") %>" class="w3-mobile w3-btn w3-bar-item w3-large meta-<%= category %>">
+        <%= tax[:value] %>
+    </a>
+    <% end %>
+  </div>
+    <% end %>
+</div>

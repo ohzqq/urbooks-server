@@ -1,0 +1,37 @@
+
+<script>
+  function sidebarShow(id) {
+      var open = document.getElementById("sidebar-open");
+      var close = document.getElementById("sidebar-close");
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        open.style.display = "none";
+        close.style.display = "block";
+        close.style.marginTop = "0.14em";
+        close.style.marginBottom = "0.30em";
+      } else { 
+        x.className = x.className.replace(" w3-show", "");
+        close.style.display = "none";
+        open.style.display = "block";
+        open.style.marginTop = "0.14em";
+        open.style.marginBottom = "0.30em";
+      }
+    }
+  function hideShow(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else { 
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+    function openTax(taxName) {
+      var i;
+      var x = document.getElementsByClassName("tax");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(taxName).style.display = "block";
+    }
+</script>

@@ -1,0 +1,67 @@
+<% if @index %>
+<div class="w3-mobile w3-row-padding">
+  <h2 class="page-title w3-col s10">
+    <a href="<%= url("rss#{@params[:path]}/bookmarks.opml") %>" class="w3-mobile feed-link w3-btn" download>
+        <svg class="feather w3-cell-middle feed-button">
+          <use href="/feather-sprite.svg#bookmark">
+        </svg>
+        <span class="w3-cell-middle">
+          Bookmarked Feeds
+        </span>
+      </a>
+  </h2>
+</div>
+<% end %>
+
+<div class="w3-mobile w3-row-padding">
+  <h2 class="page-title w3-col">
+
+    <% if @title %>
+      <a href="<%= url("/rss#{@params[:path]}") %>" class="w3-mobile feed-link w3-btn">
+        <svg class="feather w3-cell-middle feed-button">
+          <use href="/feather-sprite.svg#rss">
+        </svg>
+        <span class="w3-cell-middle">
+          <%= @title %>
+        </span>
+      </a>
+    <% end %>
+
+  </h2>
+</div>
+
+<% if @books.nil? %>
+  <div class="w3-panel w3-mobile book">
+    <h3>
+      No Results!
+    </h3>
+  </div>
+<% else %>
+  <% @books.map.each do |book| %>
+    <% path = "#{lib.current.name}/books/#{book.id.get}" %>
+    <div class="w3-panel w3-mobile item">
+      <div class="w3-mobile w3-row">
+        <div class="w3-col l2 m2 s4">
+          <a href="<%= rel_url(path) %>">
+            <img src="<%= cover_link("/#{path}") %>" class="item-cover"/>
+          </a>
+        </div>
+        <div class="w3-col l10 m10 s8 item-meta">
+          <div class="item-title">
+            <a href="<%= rel_url(path) %>">
+              <strong><%= book.title.join %></strong>
+            </a>
+          </div>
+          <p class="item-description">
+            <%= Strings.truncate(book.comments.get.strip_tags, 140) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+    <div class='w3-bar pagination w3-center'>
+      <% if @pagy.pages > 1 %>
+        <%= pagy_nav(@pagy, link_extra: "class='w3-button'") %>
+      <% end %>
+    </div>
+<% end %>

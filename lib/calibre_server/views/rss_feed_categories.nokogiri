@@ -1,0 +1,41 @@
+
+xml = Nokogiri::XML::Builder.new do |xml|
+  url = lib[@library].web["url"]
+
+  xml.rss(version: "2.0",
+          "xmlns:atom" => "http://www.w3.org/2005/Atom",
+          'xmlns:itunes' => "http://www.itunes.com/dtds/podcast-1.0.dtd") {
+    xml.channel {
+      xml.title "#{@item[:value]}"
+      xml.link File.join(url, @library, @category, @item[:id].to_s, "feed.xml")
+      xml.language "en-us"
+      xml.description "#{@item[:value]}"
+      xml['itunes'].image(href: "")
+      xml['itunes'].category(text: "Arts") {
+        xml['itunes'].category(text: "Books")
+      }
+
+      #@books.each do |meta|
+        book_meta(@books.map(:id), @library).each do |meta|
+        title = meta.join_title_series
+        xml.item {
+          xml.title title
+          xml.description <<~HTML
+            #{meta.join_names(:authors)}<br/>
+            #{meta.join_names(:narrators)}<br/>
+            #{meta.join_tags}
+            #{meta.comments}
+          HTML
+          xml['itunes'].image(href: cover_link(@library, meta))
+          xml['itunes'].duration meta.duration
+          xml.enclosure(
+            length: meta.duration,
+            type: "audio/ogg",
+            url: download_link(@library, meta)
+          )
+        }
+      end
+    }
+  }
+end
+xml.to_xml
