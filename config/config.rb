@@ -1,4 +1,4 @@
-module CalibreAPI
+module URbooksServer
   module Config
     attr_accessor :cfg
 

@@ -8,4 +8,4 @@ require 'pagy/extras/array'
 #use Rack::Sendfile
 
 
-run Rack::Cascade.new [CalibreAPI::Server::Web]
+run Rack::Cascade.new [URbooksServer::Web]

@@ -2,7 +2,7 @@
 
 require "bundler"
 
-require_relative '../lib/calibre_api'
+require_relative '../lib/urbooks_server'
 
 Bundler.require(:default)
 
@@ -16,4 +16,4 @@ Dir[File.expand_path('../config/**/*.rb', __dir__)].each do |config|
 end
 
 
-CalibreAPI::Config.config
+URbooksServer::Config.config
