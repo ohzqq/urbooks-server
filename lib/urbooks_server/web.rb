@@ -6,7 +6,7 @@ module URbooksServer
   class Web < Sinatra::Base
     register Routes::RSS
     register Routes::API
-
+    
     #include Helpers
 
     #helpers Helpers

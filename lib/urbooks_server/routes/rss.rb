@@ -11,7 +11,7 @@ module URbooksServer
             URbooksServer::XML.opml(:libraries)
           end
 
-          get "/:library" do
+          get "/:library/?" do
             URbooksServer::XML.opml(:highlighted, options: params.compact)
           end
 
@@ -19,7 +19,7 @@ module URbooksServer
             URbooksServer::XML.opml(:highlighted, options: params.compact)
           end
 
-          get "/:library/:category" do
+          get "/:library/:category/?" do
             d = Calibredb.filter(options: params.compact)
             URbooksServer::XML.opml(
               :category,
@@ -28,7 +28,7 @@ module URbooksServer
             )
           end
 
-          get "/:library/:category/:id" do
+          get "/:library/:category/:id/?" do
             desc = params["desc"]
             sort = params["sort"]
             params["ids"] = params.delete("id")
