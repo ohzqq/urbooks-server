@@ -7,7 +7,6 @@ module URbooksServer
         app.register Sinatra::Namespace
 
         app.namespace '/rss', provides: ['rss', 'xml'] do
-        #app.namespace '/rss' do
           get "/" do
             URbooksServer::XML.opml(:libraries)
           end
