@@ -5,12 +5,10 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in calibre_api.gemspec
 gemspec
 
-#gem "calibredb", git: "https://github.com/ohzqq/calibredb"
-gem "calibredb", path: "/home/nina/Sync/code/calibredb"
+gem "calibredb", git: "https://github.com/ohzqq/calibredb"
+#gem "calibredb", path: "/home/nina/Sync/code/calibredb"
 
 gem "rake", "~> 13.0"
-
-gem "rabl", "~> 0.15.0"
 
 gem "commander", "~> 4.6"
 

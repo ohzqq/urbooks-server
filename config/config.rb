@@ -14,10 +14,8 @@ module URbooksServer
     end
 
     def config_file
-      YAML.safe_load_file(
-        File.join(__dir__, "../tmp", "config.yml"),
-        symbolize_names: true
-      )
+      user_conf = File.join(Dir.home, "/.config/urbooks/config.yml")
+      YAML.safe_load_file(user_conf, symbolize_names: true)
     end
     
     private

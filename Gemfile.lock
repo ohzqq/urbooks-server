@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/ohzqq/calibredb
+  revision: e7c1e215b238c7c4b42e6fddb51c30227e988539
+  specs:
+    calibredb (0.1.0)
+      json (~> 2.6.1)
+      sequel (~> 5.52.0)
+      sqlite3 (~> 1.4.2)
+      yaml (~> 0.2.0)
+
 PATH
   remote: .
   specs:
@@ -6,17 +16,7 @@ PATH
       json (~> 2.6.1)
       pagy (~> 5.10.1)
       puma (~> 5.6.2)
-      rabl (~> 0.15.0)
       sinatra (~> 2.2.0)
-      yaml (~> 0.2.0)
-
-PATH
-  remote: /home/nina/Sync/code/calibredb
-  specs:
-    calibredb (0.1.0)
-      json (~> 2.6.1)
-      sequel (~> 5.52.0)
-      sqlite3 (~> 1.4.2)
       yaml (~> 0.2.0)
 
 GEM
@@ -48,8 +48,6 @@ GEM
       activesupport
     puma (5.6.2)
       nio4r (~> 2.0)
-    rabl (0.15.0)
-      activesupport (>= 2.3.14)
     racc (1.6.0)
     rack (2.2.3)
     rack-protection (2.2.0)
@@ -96,7 +94,6 @@ DEPENDENCIES
   json (~> 2.6)
   pagy (~> 5.10)
   puma (~> 5.6)
-  rabl (~> 0.15.0)
   rake (~> 13.0)
   sequel (~> 5.52)
   sinatra (~> 2.2)
