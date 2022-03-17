@@ -3,12 +3,6 @@ module URbooksServer
     module Web
       extend self
 
-      def parse_url(url)
-        Nokogiri::HTML(URI.open(url), nil, 'UTF-8') do |config|
-          config.noblanks
-        end
-      end
-
       def list_feeds(library = lib.current.name)
         feeds = {}
         if highlighted_feeds?(library)
