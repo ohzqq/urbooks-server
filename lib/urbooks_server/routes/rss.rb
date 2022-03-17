@@ -7,6 +7,7 @@ module URbooksServer
         app.register Sinatra::Namespace
 
         app.namespace '/rss', provides: ['rss', 'xml'] do
+        #app.namespace '/rss' do
           get "/" do
             URbooksServer::XML.opml(:libraries)
           end
@@ -36,7 +37,8 @@ module URbooksServer
             d = Calibredb.filter(options: params.compact)
 
             unless params[:category] == "books"
-              URbooksServer::XML.rss(d, options)
+              #d.as_hash.to_json
+              URbooksServer::XML.rss(d, params)
             end
           end
         end

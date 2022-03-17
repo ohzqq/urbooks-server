@@ -7,11 +7,11 @@ xml.tag!(:description, type: "xhtml") {
   xml.text!("Tags: #{tags.to_s}<br/>")
   xml.text!("Description: " << comments.to_s)
 }
-xml.tag!("itunes:image", href: cover.url)
-xml.tag!("itunes:duration", formats.audiobook.duration)
+xml.tag!("itunes:image", href: download(:cover).url)
+xml.tag!("itunes:duration", duration.to_s)
 xml.tag!(
   :enclosure,
-  url: formats.audiobook.url,
-  type: URbooksServer::Helpers.mime_types[formats.audiobook.ext],
-  length: formats.audiobook.duration
+  url: download(:audio).url,
+  type: URbooksServer::Helpers.audio_mime_types.values.first,
+  length: duration.to_s
 )

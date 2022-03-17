@@ -37,8 +37,8 @@ module URbooksServer
         opts["library"] = @metadata.library.name
         opts["category"] = "books"
         opts["ids"] = book_ids
-        opts.merge(@options.slice("sort", "desc"))
-        Calibredb.filter(options: opts)
+        #opts.merge(@options.slice("sort", "desc"))
+        URbooksServer::Book.meta(Calibredb.filter(options: opts))
       end
 
       def language
@@ -49,7 +49,7 @@ module URbooksServer
         "/rss"
       end
 
-      def url(path)
+      def url
         URI::HTTPS.build(
           host: lib.server.host,
           path: "#{namespace}/#{path}"
@@ -57,7 +57,7 @@ module URbooksServer
       end
       
       def path
-        "#{@meta.library}/#{@meta.column}/#{@data.first.id}"
+        "#{@metadata.library.name}/#{@metadata.category}/#{@data.id}"
       end
 
       def as_xml

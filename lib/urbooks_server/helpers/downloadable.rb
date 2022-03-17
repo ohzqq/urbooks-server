@@ -3,10 +3,6 @@ module URbooksServer
     module Downloadable
       extend self
 
-      def downloadable?
-        mime_types.keys.include?(ext)
-      end
-      
       def absolute
         Pathname.new(lib.server.library_path).join(relative)
       end
@@ -24,11 +20,6 @@ module URbooksServer
       
       def ext
         relative.extname.delete(".")
-      end
-      
-      def mime_types
-        URbooksServer::Helpers.ebook_mime_types
-          .merge(URbooksServer::Helpers.audio_mime_types)
       end
     end
   end

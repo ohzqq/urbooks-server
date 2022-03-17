@@ -1,13 +1,11 @@
 module URbooksServer
-  class Book < SimpleDelegator
-    include URbooksServer::XML::Formattable
+  module Book
+    autoload :Meta, 'urbooks_server/book/meta'
     
-    def download(ext)
-      d = Struct.new(:file) do
-        include URbooksServer::Helpers::Downloadable
-      end
-      
-      d.new(self.formats.get(ext))
+    extend self
+
+    def meta(dataset)
+      dataset.meta.map {|b| URbooksServer::Book::Meta.new(b)}
     end
   end
 end

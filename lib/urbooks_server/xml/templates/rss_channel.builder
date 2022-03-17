@@ -15,7 +15,8 @@ xml.tag!(
     channel.tag!(:description, description)
     channel.tag!(:cover, cover)
     channel.tag!(:category, "Books")
-    books.meta.each do |book|
+    books.each do |book|
+      next unless book.downloads?
       channel.tag!(:item) do |item|
         render "rss_item", book, xml: item
       end
