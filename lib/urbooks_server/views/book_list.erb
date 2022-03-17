@@ -38,7 +38,7 @@
   </div>
 <% else %>
   <% @books.map.each do |book| %>
-    <% path = "#{lib.current.name}/books/#{book.id.get}" %>
+    <% path = "#{lib.current.name}/books/#{book.id}" %>
     <div class="w3-panel w3-mobile item">
       <div class="w3-mobile w3-row">
         <div class="w3-col l2 m2 s4">
@@ -53,7 +53,7 @@
             </a>
           </div>
           <p class="item-description">
-            <%= Strings.truncate(book.comments.get.strip_tags, 140) %>
+            <%= Strings.truncate(book.comments.to_s.strip_tags, 140) %>
           </p>
         </div>
       </div>

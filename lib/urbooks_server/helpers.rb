@@ -1,19 +1,16 @@
 require_relative 'helpers/url'
-require_relative 'helpers/data'
 require_relative 'helpers/css'
 require_relative 'helpers/paginate'
 require_relative 'helpers/web'
 
 module URbooksServer
   module Helpers
-    #autoload :Css, 'urbooks/server/helpers/css'
-    #autoload :URL, 'urbooks/server/helpers/url'
+    autoload :CSS, 'urbooks_server/helpers/css'
+    autoload :URL, 'urbooks/server/helpers/url'
     autoload :Downloadable, 'urbooks_server/helpers/downloadable'
 
+    include URbooksServer::Helpers::CSS
     include URbooksServer::Helpers::URL
-    include URbooksServer::Helpers::Downloadable
-    include URbooksServer::Helpers::Css
-    include URbooksServer::Helpers::Data
     include URbooksServer::Helpers::Paginate
     include URbooksServer::Helpers::Web
 

@@ -5,7 +5,7 @@
   </div>
   <div class="w3-col m8 l8">
   <h3 class="page-title w3-center">
-    <a href="<%= @item.formats.get(:audiobook).url %>" class="w3-mobile feed-link ">
+    <a href="<%= @item.download(:audio).url %>" class="w3-mobile feed-link ">
       <svg class="feather w3-cell-middle feed-button">
         <use href="/feather-sprite.svg#download">
       </svg>
@@ -22,5 +22,5 @@
 
 
 <div class="description w3-mobile w3-row-padding"> 
-  <p><%= @item.comments.get %></p>
+  <p><%= @item.comments.to_s %></p>
 </div>

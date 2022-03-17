@@ -37,3 +37,5 @@ gem "builder", "~> 3.2"
 gem "sterile", "~> 1.0"
 
 gem "delegate", "~> 0.2.0"
+
+gem "strings", "~> 0.2.1"

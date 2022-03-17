@@ -7,7 +7,7 @@ module URbooksServer
 
       def paginate(dataset)
         pag, dataset = pagy(dataset)
-        [pag, URbooks::Book.meta(dataset)]
+        [pag, URbooksServer::Book.meta(dataset)]
       end
 
       def pagy_get_vars(collection, vars)

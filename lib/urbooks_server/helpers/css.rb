@@ -1,24 +1,24 @@
 module URbooksServer
   module Helpers
-    module Css
+    module CSS
       extend self
 
       def compile(path)
         stylesheet = <<~CSS
 :root {
---bg: #{lib.theme.web.default_bg};
---fg: #{lib.theme.web.default_fg};
+--bg: #{lib.theme.web.fetch(:default_bg)};
+--fg: #{lib.theme.web.fetch(:default_fg)};
 
---white: #{lib.theme.web.white};
---black: #{lib.theme.web.black};
---grey: #{lib.theme.web.grey};
---yellow: #{lib.theme.web.yellow};
---red: #{lib.theme.web.red};
---pink: #{lib.theme.web.pink};
---cyan: #{lib.theme.web.cyan};
---blue: #{lib.theme.web.blue};
---green: #{lib.theme.web.green};
---purple: #{lib.theme.web.purple};
+--white: #{lib.theme.web.fetch(:white)};
+--black: #{lib.theme.web.fetch(:black)};
+--grey: #{lib.theme.web.fetch(:grey)};
+--yellow: #{lib.theme.web.fetch(:yellow)};
+--red: #{lib.theme.web.fetch(:red)};
+--pink: #{lib.theme.web.fetch(:pink)};
+--cyan: #{lib.theme.web.fetch(:cyan)};
+--blue: #{lib.theme.web.fetch(:blue)};
+--green: #{lib.theme.web.fetch(:green)};
+--purple: #{lib.theme.web.fetch(:purple)};
 
 --darken: brightness(90%);
 

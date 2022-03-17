@@ -10,7 +10,7 @@
   <% @items.each do |item| %>
     <div class="w3-col m6 l6 w3-mobile">
       <a href="<%= rel_url("#{@params[:library].to_slug}/#{@params[:category]}/#{item[:id]}") %>" class="w3-mobile w3-large w3-btn w3-bar-item taxonomy-<%=@params[:category]%> w3-left-align">
-        <%= item[:value] %> | <%= item[:book_total] %>
+        <%= item[:value] %> | <%= item[:total_books] %>
       </a>
     </div>
   <% end %>
