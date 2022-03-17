@@ -8,28 +8,35 @@ module URbooksServer
 
         app.namespace '/rss', provides: ['rss', 'xml'] do
           get "/" do
-            URbooks::Book.opml(:libraries)
+            URbooksServer::XML.opml(:libraries)
           end
 
           get "/:library" do
-            lib.update = params[:library]
-            URbooks::Book.opml(:highlighted)
+            URbooksServer::XML.opml(:highlighted, options: params.compact)
           end
 
           get "/:library/bookmarks.opml" do
-            lib.update = params[:library]
-            URbooks::Book.opml(:highlighted)
+            URbooksServer::XML.opml(:highlighted, options: params.compact)
           end
 
           get "/:library/:category" do
-            lib.update = params[:library]
-            URbooks::Book.opml(:category, results(params))
+            d = Calibredb.filter(options: params.compact)
+            URbooksServer::XML.opml(
+              :category,
+              object: d,
+              options: params.compact
+            )
           end
 
           get "/:library/:category/:id" do
-            lib.update = params[:library]
+            desc = params["desc"]
+            sort = params["sort"]
+            params["ids"] = params.delete("id")
+
+            d = Calibredb.filter(options: params.compact)
+
             unless params[:category] == "books"
-              rss(results(params))
+              URbooksServer::XML.rss(d, options)
             end
           end
         end

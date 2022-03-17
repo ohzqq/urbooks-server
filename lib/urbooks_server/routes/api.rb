@@ -21,7 +21,7 @@ module URbooksServer
                 params["ids"]
               end
             params["format"] = "hash" if params["format"] == "json" || !params.key?("format")
-            l, c, d = Calibredb.filter(options: params.compact)
+            d = Calibredb.filter(options: params.compact)
             {params[:category] => d}.to_json
           end
         end

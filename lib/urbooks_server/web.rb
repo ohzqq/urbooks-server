@@ -1,10 +1,10 @@
 require 'sinatra/namespace'
-#require_relative 'helpers'
+require_relative 'helpers'
 require_relative 'routes'
 
 module URbooksServer
   class Web < Sinatra::Base
-    #register Routes::RSS
+    register Routes::RSS
     register Routes::API
 
     #include Helpers
@@ -27,11 +27,7 @@ module URbooksServer
       def menu_items
         %w[authors narrators series tags].reverse
       end
-
-      def rss(data)
-        #URbooks::Book.rss(data)
-      end
-
+      
       def libraries
         lib.list
       end

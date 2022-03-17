@@ -9,7 +9,7 @@ Bundler.require(:default)
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-alias libs configatron
+alias lib configatron
 
 Dir[File.expand_path('../config/**/*.rb', __dir__)].each do |config|
   require config
