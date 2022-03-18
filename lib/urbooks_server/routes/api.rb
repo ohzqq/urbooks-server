@@ -7,7 +7,13 @@ module URbooksServer
         app.register Sinatra::Namespace
 
         app.namespace '/api', provides: ['json'] do
+
+          get "/?" do
+            {libraries: lib.list}.to_json
+          end
+
           get "/:library/:category/?:id?" do
+            lib.update = params[:library]
             Calibredb.connect
             format = params["format"]
             fields = params["fields"]

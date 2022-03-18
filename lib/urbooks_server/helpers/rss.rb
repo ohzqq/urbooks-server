@@ -1,7 +1,7 @@
 module URbooksServer
   module Helpers
-    module Web
-      extend self
+    module RSS
+      include URbooksServer::Helpers::Data
 
       def list_feeds(library = lib.current.name)
         feeds = {}
@@ -20,14 +20,6 @@ module URbooksServer
           end
         end
         feeds
-      end
-
-      def find_term(opts)
-        Calibredb.filter(options: opts)
-      end
-
-      def term_path(obj, row)
-        File.join(obj.library.name.to_s, obj.category.to_s, row.id.to_s)
       end
 
       def highlighted_feeds(library = lib.current.name)

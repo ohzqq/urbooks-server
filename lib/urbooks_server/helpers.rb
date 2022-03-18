@@ -1,18 +1,13 @@
-require_relative 'helpers/url'
-require_relative 'helpers/css'
-require_relative 'helpers/paginate'
-require_relative 'helpers/web'
-
 module URbooksServer
   module Helpers
     autoload :CSS, 'urbooks_server/helpers/css'
-    autoload :URL, 'urbooks/server/helpers/url'
+    autoload :Data, 'urbooks_server/helpers/data'
     autoload :Downloadable, 'urbooks_server/helpers/downloadable'
+    autoload :Paginate, 'urbooks_server/helpers/paginate'
+    autoload :RSS, 'urbooks_server/helpers/rss'
 
     include URbooksServer::Helpers::CSS
-    include URbooksServer::Helpers::URL
     include URbooksServer::Helpers::Paginate
-    include URbooksServer::Helpers::Web
 
     extend self
 
@@ -35,15 +30,6 @@ module URbooksServer
       fields << "added"
       desc = params.fetch("desc") {nil}
       dataset.meta(*fields, desc, format: "string")
-    end
-    
-    def xml_description(book)
-      description = ""
-      description << "Authors: #{book.authors.join}<br/>" if book.authors
-      description << "Narrators: #{book.narrators.join}<br/>" if book.narrators
-      description << "Tags: #{book.tags.join}" if book.tags
-      description << "#{book.comments.meta}" if book.comments
-      description
     end
     
     def ebook_mime_types
