@@ -8,17 +8,6 @@ GIT
       sqlite3 (~> 1.4.2)
       yaml (~> 0.2.0)
 
-PATH
-  remote: .
-  specs:
-    urbooks_server (0.1.0)
-      commander (~> 4.6.0)
-      json (~> 2.6.1)
-      pagy (~> 5.10.1)
-      puma (~> 5.6.2)
-      sinatra (~> 2.2.0)
-      yaml (~> 0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,7 +90,6 @@ DEPENDENCIES
   sqlite (~> 1.0)
   sterile (~> 1.0)
   strings (~> 0.2.1)
-  urbooks_server!
   yaml (~> 0.2.0)
 
 BUNDLED WITH

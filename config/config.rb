@@ -6,19 +6,30 @@ module URbooksServer
 
     def config
       @cfg = config_file
-      Calibredb.configure(libraries: @cfg.fetch(:libraries))
       lib_list
+      Calibredb.configure(libraries: @cfg.fetch(:libraries))
+      connect
       libraries
       website(@cfg.fetch(:website))
       current_lib
     end
 
+    private
+    
+    def connect
+      Calibredb.configure(libraries: @cfg.fetch(:libraries))
+    end
+    
+    def dev
+    end
+    
+    def server
+    end
+    
     def config_file
       user_conf = File.join(Dir.home, "/.config/urbooks/config.yml")
       YAML.safe_load_file(user_conf, symbolize_names: true)
     end
-    
-    private
     
     def libraries
       lib.list.each do |l|
