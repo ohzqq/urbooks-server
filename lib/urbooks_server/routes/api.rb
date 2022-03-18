@@ -8,6 +8,7 @@ module URbooksServer
 
         app.namespace '/api', provides: ['json'] do
           get "/:library/:category/?:id?" do
+            Calibredb.connect
             format = params["format"]
             fields = params["fields"]
             query = params["q"]

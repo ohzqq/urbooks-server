@@ -2,7 +2,6 @@
 
 require "bundler"
 
-require_relative '../lib/urbooks_server'
 
 Bundler.require(:default)
 
@@ -14,6 +13,7 @@ alias lib configatron
 Dir[File.expand_path('../config/**/*.rb', __dir__)].each do |config|
   require config
 end
+require_relative '../lib/urbooks_server'
 
 
 URbooksServer::Config.config

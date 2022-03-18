@@ -32,10 +32,6 @@ module URbooksServer
       def libraries
         lib.list.map(&:to_s)
       end
-
-      def cover_link(path)
-        url("/dl#{path}.jpg")
-      end
     end
 
     get "/" do
@@ -44,18 +40,18 @@ module URbooksServer
 
     get "/:library/?" do
       lib.update = params[:library]
-      Calibredb.libraries.current.connect
-      params[:category] = :books
+      Calibredb.connect
+      params[:category] = "books"
       params[:path] = request.path_info
       @index = true
       @params = params
-      @pagy, @books = paginate(Calibredb.filter(options: params))
+      @pagy, @books = paginate(Calibredb.filter(options: params.compact))
       erb :book_list
     end
 
     get "/:library/search/?" do
       lib.update = params[:library]
-      Calibredb.libraries.current.connect
+      Calibredb.connect
       params[:path] = request.path_info
       @params = params
       erb :search
@@ -63,14 +59,14 @@ module URbooksServer
 
     get "/:library/:category/?" do
       lib.update = params[:library]
-      Calibredb.libraries.current.connect
+      Calibredb.connect
 
       if params[:q]
         params[:q].empty? ? params.delete(:q) : params[:q]
       end
 
       @params = params
-      results = Calibredb.filter(options: params)
+      results = Calibredb.filter(options: params.compact)
 
       case params[:category]
       when "books"
@@ -83,9 +79,10 @@ module URbooksServer
     end
 
     get "/:library/:category/:id/?" do
-      lib.update = params[:library]
-      Calibredb.libraries.current.connect
-      results = Calibredb.filter(options: params)
+      lib.update = params["library"]
+      Calibredb.connect
+      params["ids"] = params["id"] || params["ids"]
+      results = Calibredb.filter(options: params.compact)
       params[:path] = request.path_info
       @params = params
       case params[:category]
@@ -101,10 +98,11 @@ module URbooksServer
 
     get "/dl/:library/books/:id.:ext" do
       lib.update = params[:library]
-      Calibredb.libraries.current.connect
-      params[:path] = request.path_info
+      Calibredb.connect
+      #params[:path] = request.path_info
       params[:category] = "books"
-      book = URbooksServer::Book.meta(Calibredb.filter(options: params)).first
+      params["ids"] = params["id"] || params["ids"]
+      book = URbooksServer::Book.meta(Calibredb.filter(options: params.compact)).first
       file =
         case params[:ext]
         when "jpg"

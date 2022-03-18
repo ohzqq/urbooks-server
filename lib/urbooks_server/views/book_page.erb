@@ -1,7 +1,7 @@
 <div style="padding-top: 1em;" class=""> </div>
 <div class="w3-mobile w3-row-padding">
   <div class="w3-col m4 l4">
-    <img src="<%= cover_link(@params[:path]) %>" class="cover"/>
+    <img src="<%= @item.download(:cover).url %>" class="cover"/>
   </div>
   <div class="w3-col m8 l8">
   <h3 class="page-title w3-center">

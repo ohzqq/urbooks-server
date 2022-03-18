@@ -6,29 +6,38 @@ module URbooksServer
 
     def config
       @cfg = config_file
-      lib_list
-      Calibredb.configure(libraries: @cfg.fetch(:libraries))
       connect
+      lib_list
       libraries
       website(@cfg.fetch(:website))
       current_lib
     end
 
+    def config_file
+      user_conf = File.join(Dir.home, ".config/urbooks/config.yml")
+      YAML.safe_load_file(user_conf, symbolize_names: true)
+    end
+    
+    def production
+      p = {}
+      @cfg.fetch(:libraries).each do |l, m|
+        p[l] = m.slice(:audiobooks)
+        p[l][:path] = File.join(@cfg.dig(:website, :library_path), l.to_s)
+      end
+      p
+    end
+    
     private
     
     def connect
-      Calibredb.configure(libraries: @cfg.fetch(:libraries))
-    end
-    
-    def dev
-    end
-    
-    def server
-    end
-    
-    def config_file
-      user_conf = File.join(Dir.home, "/.config/urbooks/config.yml")
-      YAML.safe_load_file(user_conf, symbolize_names: true)
+      l =
+        case ENV["URBOOKS"]
+        when "production"
+          production
+        else
+          @cfg.fetch(:libraries)
+        end
+      Calibredb.configure(libraries: l)
     end
     
     def libraries
