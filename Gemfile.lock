@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/ohzqq/calibredb
-  revision: e7c1e215b238c7c4b42e6fddb51c30227e988539
+  revision: 76765072cf6f5d222b595363ca8de3d350b304d4
   specs:
     calibredb (0.1.0)
       json (~> 2.6.1)

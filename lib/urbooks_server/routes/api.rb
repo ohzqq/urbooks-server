@@ -23,8 +23,7 @@ module URbooksServer
             ids =  params["ids"]
             params["ids"] = params["id"] || params["ids"]
 
-            d = Calibredb.filter(options: params.compact)
-            {params[:category] => d.as_hash}.to_json
+            Calibredb.filter(options: params.compact).as_json
           end
         end
       end

@@ -2,7 +2,7 @@ module URbooksServer
   module XML
     class OPML
       include URbooksServer::XML::Formattable
-      include URbooksServer::Helpers::Web
+      include URbooksServer::Helpers::RSS
 
       attr_reader :title
 

@@ -13,6 +13,8 @@ module URbooksServer
     helpers Helpers
 
     Helpers::CSS.compile(File.join(__dir__, "public/style.css"))
+    
+    Pagy::DEFAULT[:metadata] = %i[count page items pages]
 
     helpers do
       include Pagy::Frontend
@@ -41,11 +43,16 @@ module URbooksServer
     get "/:library/?" do
       lib.update = params[:library]
       Calibredb.connect
+
       params[:category] = "books"
       params[:path] = request.path_info
+      params["page"] ||= 1
+      results = Calibredb.filter(options: params.compact)
+
       @index = true
       @params = params
-      @pagy, @books = paginate(Calibredb.filter(options: params.compact))
+      @pagy = results.pagy_data
+      @books = URbooksServer::Book.meta(results.data)
       erb :book_list
     end
 
@@ -66,14 +73,17 @@ module URbooksServer
       end
 
       @params = params
-      results = Calibredb.filter(options: params.compact)
 
       case params[:category]
       when "books"
-        @pagy, @books = paginate(results)
+        params["page"] ||= 1
+        results = Calibredb.filter(options: params.compact)
+        @pagy = results.pagy_data
+        @books = URbooksServer::Book.meta(results.data)
         erb :book_list
       else
-        @items = results.as_hash("all")
+        results = Calibredb.filter(options: params.compact)
+        @items = results.data.as_hash("all")
         erb :taxonomy_index
       end
     end
@@ -81,17 +91,20 @@ module URbooksServer
     get "/:library/:category/:id/?" do
       lib.update = params["library"]
       Calibredb.connect
+
       params["ids"] = params["id"] || params["ids"]
-      results = Calibredb.filter(options: params.compact)
       params[:path] = request.path_info
+      params["page"] ||= 1
+      results = Calibredb.filter(options: params.compact)
+
       @params = params
       case params[:category]
       when "books"
-        @item = URbooksServer::Book.meta(results).first
+        @item = URbooksServer::Book.meta(results.data).first
         erb :book_page
       else
-        @title = results.first.value
-        @pagy, @books = paginate(results.first.books_dataset)
+        @title = results.data.first.value
+        @pagy, @books = paginate(results.data.first.books_dataset)
         erb :book_list
       end
     end
@@ -99,10 +112,14 @@ module URbooksServer
     get "/dl/:library/books/:id.:ext" do
       lib.update = params[:library]
       Calibredb.connect
-      #params[:path] = request.path_info
+
       params[:category] = "books"
       params["ids"] = params["id"] || params["ids"]
-      book = URbooksServer::Book.meta(Calibredb.filter(options: params.compact)).first
+
+      book = URbooksServer::Book.meta(
+        Calibredb.filter(options: params.compact).data
+      ).first
+
       file =
         case params[:ext]
         when "jpg"
@@ -112,6 +129,5 @@ module URbooksServer
         end
       send_file(file)
     end
-
   end
 end

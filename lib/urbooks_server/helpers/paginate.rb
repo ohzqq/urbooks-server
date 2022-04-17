@@ -14,7 +14,7 @@ module URbooksServer
         {
           count: collection.count,
           page: params["page"],
-          items: vars[:items] || 25
+          items: vars[:items] || 20
         }
       end
     end
