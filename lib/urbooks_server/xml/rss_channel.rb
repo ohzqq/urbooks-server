@@ -8,8 +8,8 @@ module URbooksServer
       def initialize(dataset, options)
         @options = options
         @metadata = dataset
-        @data = data.first
-        @meta = data.as_hash("all").first
+        @data = dataset.data.first
+        @meta = dataset.data.as_hash("all").first
       end
 
       def format(data)
@@ -34,11 +34,10 @@ module URbooksServer
 
       def books
         opts = {}
-        opts["library"] = @metadata.library.name
+        opts["library"] = @metadata.data.library.name
         opts["category"] = "books"
         opts["ids"] = book_ids
-        #opts.merge(@options.slice("sort", "desc"))
-        URbooksServer::Book.meta(Calibredb.filter(options: opts))
+        URbooksServer::Book.meta(Calibredb.filter(options: opts).data)
       end
 
       def language
@@ -57,7 +56,7 @@ module URbooksServer
       end
       
       def path
-        "#{@metadata.library.name}/#{@metadata.category}/#{@data.id}"
+        "#{@metadata.data.library.name}/#{@metadata.data.category}/#{@data.id}"
       end
 
       def as_xml
