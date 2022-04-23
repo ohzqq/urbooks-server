@@ -8,12 +8,12 @@ module URbooksServer
       def initialize(dataset, options)
         @options = options
         @metadata = dataset
-        @data = dataset.first
-        @meta = dataset.as_hash("all").first
+        @data = data.first
+        @meta = data.as_hash("all").first
       end
 
       def format(data)
-        URbooks::Book::RSSChannel.new(data).as_xml
+        URbooksServer::XML.rss(data).as_xml
       end
 
       def title
